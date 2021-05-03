@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Down</title>
+    <style>
+      #countDownWrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #603F83FF;
+      }
+      span {
+	font-size: 28px;
+	font-weight: bold;
+	color: #C7D3D4FF;
+	margin: 0 20px;
+}
+span#day, span#month, span#minutes, span#seconds {
+	color: yellow;
+	border: 2px solid #C7D3D4FF;
+	text-align: center;
+	padding: 0;
+	display: inline-block;
+	height: 50px;
+	width: 50px;
+	line-height: 50px;
+	box-shadow: 0px 0px 10px;
+}
+    </style>
+</head>
+<body>
+
+
+<div id="countDownWrap">
+  <!-- This code is needy for countDown system -->
+  <!-- ================================================================= -->
+  <!-- Initialize your desire date time in this dataset day month & year -->
+  <span id="countDown" data-countDown-day="4" data-countDown-month="may" data-countDown-year="2022"></span>
+  <!-- This div is nessessary for showing your countDown -->
+  <div id="countDownShow">
+    <span id="day"></span>
+    <span>:</span>
+    <span id="month"></span>
+    <span>:</span>
+    <span id="minutes"></span>
+    <span>:</span>
+    <span id="seconds"></span>
+  </div>
+  <!-- ================================================================= -->
+  <!-- This code is needy for countDown system -->
+
+
+</div>
+
+
+
+<script>
+// countDown element tag selector
+const countDown = document.querySelector('#countDown');
+
+//All dataset value
+var day = countDown.dataset.countdownDay;
+var month = countDown.dataset.countdownMonth;
+var year = countDown.dataset.countdownYear;
+
+// Make this string data
+
+var inputData = `${month.toString()}` + ' ' + `${day.toString()}`+ ', ' + `${year.toString()}`;
+
+
+// Your inputed datetime is here..
+var countDownDate = new Date(inputData).getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+    
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+    
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+  // Output the result in an element with id="demo"
+  document.getElementById("day").innerHTML = days + " "; //comment this section if you don't want to show days
+  document.getElementById("month").innerHTML = hours + " ";//comment this section if you don't want to show hours
+  document.getElementById("minutes").innerHTML = minutes + " ";//comment this section if you don't want to show minutess
+  document.getElementById("seconds").innerHTML = seconds + " ";//comment this section if you don't want to show seconds
+    
+
+  // If the count down is over, write some text 
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("countDownShow").innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+
+
+
+</script>
+
+</body>
+</html>
